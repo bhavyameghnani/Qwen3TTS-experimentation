@@ -1,0 +1,11 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+
+# Local-only config
+local_config.py
+
+# Models
+models/
