@@ -2,8 +2,7 @@ import torch
 import soundfile as sf
 import numpy as np
 import matplotlib.pyplot as plt
-from moviepy.audio.io.AudioFileClip import AudioFileClip
-from moviepy.video.io.ImageSequenceClip import ImageSequenceClip
+from local_config import MODEL_PATH
 
 from qwen_tts import Qwen3TTSModel
 import os
@@ -24,7 +23,7 @@ GUEST_INSTRUCT = "Speak calmly, confidently, like an expert explaining concepts.
 # LOAD MODEL
 # =============================
 model = Qwen3TTSModel.from_pretrained(
-    "/Users/tanayaverma/nomura/models/qwen3-tts-0.6b",
+    MODEL_PATH,
     device_map="cpu",
     dtype=torch.float32,
 )
@@ -172,7 +171,7 @@ sample_rate = None
 for idx, seg in enumerate(PODCAST_SEGMENTS):
     speaker = HOST_VOICE if seg["role"] == "host" else GUEST_VOICE
     instruct = seg.get("instruct")
-
+    
     wavs, sr = model.generate_custom_voice(
         text=seg["text"],
         language="English",
